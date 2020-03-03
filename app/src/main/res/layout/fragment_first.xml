@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.gubb.cleana.presenter.ui.login.LoginViewModel" />
+
+    </data>
+
+    <ScrollView
+        android:id="@+id/scroll1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/parent_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context=".ui.login.view.LoginActivity">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent=".4" />
+
+            <ImageView
+                android:id="@+id/login_background"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:onClick="selectEnvironment"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/guideline_horizontal"/>
+
+            <TextView
+                android:id="@+id/email_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/pad_40"
+                android:layout_marginStart="@dimen/pad_20"
+                android:layout_marginLeft="@dimen/pad_20"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/guideline_horizontal" />
+
+            <EditText
+                android:id="@+id/email_address"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_50"
+                android:layout_marginTop="@dimen/pad_10"
+                android:padding="@dimen/pad_10"
+                android:layout_marginStart="@dimen/pad_20"
+                android:layout_marginLeft="@dimen/pad_20"
+                android:layout_marginEnd="@dimen/pad_20"
+                android:layout_marginRight="@dimen/pad_20"
+                android:inputType="textEmailAddress"
+                android:hint="enter_email_address"
+                android:text="@={viewModel.emailAddress}"
+                android:onTextChanged="@{(text, start, before, count) -> viewModel.validateEmail(text)}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/email_label" />
+
+
+            <TextView
+                android:id="@+id/password_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/pad_20"
+                android:layout_marginStart="@dimen/pad_20"
+                android:layout_marginLeft="@dimen/pad_20"
+                android:text="password_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/email_address" />
+
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_50"
+                android:layout_marginTop="@dimen/pad_10"
+                android:padding="@dimen/pad_10"
+                android:layout_marginStart="@dimen/pad_20"
+                android:layout_marginLeft="@dimen/pad_20"
+                android:layout_marginEnd="@dimen/pad_20"
+                android:layout_marginRight="@dimen/pad_20"
+                android:hint="enter_password"
+                android:text="@={viewModel.password}"
+                android:onTextChanged="@{(text, start, before, count) -> viewModel.validatePassword(text)}"
+                android:inputType="textPassword"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/password_label" />
+
+            <TextView
+                android:id="@+id/email_password_error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/pad_10"
+                android:layout_marginStart="@dimen/pad_20"
+                android:visibility="gone"
+                android:text="invalid_email_password"
+                android:textColor="@color/colorAccent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/password"
+                android:layout_marginLeft="@dimen/pad_20" />
+
+            <TextView
+                android:id="@+id/reset_password_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/pad_10"
+                android:layout_marginEnd="@dimen/pad_20"
+                android:layout_marginRight="@dimen/pad_20"
+                android:textSize="@dimen/font_size_normal"
+                android:text="reset_password_label"
+                android:onClick="redirectResetPassword"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/password" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.75" />
+
+            <Button
+                android:id="@+id/login_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/pad_40"
+                android:clickable="@{viewModel.enableButton}"
+                android:onClick="@{()->viewModel.login()}"
+                android:text="login_btn"
+                android:layout_marginStart="@dimen/pad_20"
+                android:layout_marginLeft="@dimen/pad_20"
+                android:layout_marginEnd="@dimen/pad_20"
+                android:layout_marginRight="@dimen/pad_20"
+                android:textAllCaps="false"
+                android:textSize="@dimen/button_text"
+                app:layout_constraintEnd_toStartOf="@+id/fingerprint_btn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/reset_password_label" />
+
+            <ImageView
+                android:id="@+id/fingerprint_btn"
+                android:layout_width="@dimen/pad_70"
+                android:layout_height="@dimen/pad_50"
+                android:layout_marginTop="@dimen/pad_40"
+                android:layout_marginEnd="@dimen/pad_20"
+                android:layout_marginRight="@dimen/pad_20"
+                android:padding="@dimen/pad_10"
+                android:visibility="@{viewModel.enableFingerPrint?View.VISIBLE:View.GONE}"
+                android:onClick="displayBiometricDialog"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/reset_password_label" />
+
+            <TextView
+                android:id="@+id/version_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/pad_40"
+                android:textSize="@dimen/font_size_normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/login_btn" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>
