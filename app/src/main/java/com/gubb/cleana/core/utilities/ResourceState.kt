@@ -1,4 +1,4 @@
-package com.gubb.cleana.core
+package com.gubb.cleana.core.utilities
 
 /**
  * Different states of a resource that is provided to the presentation layer.

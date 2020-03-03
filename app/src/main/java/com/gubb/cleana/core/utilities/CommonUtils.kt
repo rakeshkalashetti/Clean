@@ -1,8 +1,7 @@
-package com.gubb.cleana.core
+package com.gubb.cleana.core.utilities
 
 import android.content.Context
 import android.text.TextUtils
-import android.util.Patterns
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*

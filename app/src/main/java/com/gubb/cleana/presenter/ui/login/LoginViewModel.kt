@@ -6,7 +6,7 @@ import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.gubb.cleana.core.CommonUtils
+import com.gubb.cleana.core.utilities.CommonUtils
 import com.gubb.cleana.domain.usecase.LoginUseCase
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -17,12 +17,12 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
 
     val enableButton = ObservableBoolean()
     val isEmailValid = MutableLiveData<Boolean>()
-    val isPasswordValid = MutableLiveData<Boolean>()
-    val enableFingerPrint = ObservableBoolean()
+
     val loginSuccessful = MutableLiveData<Boolean>()
 
+    var details: ObservableField<String> = ObservableField()
+
     var emailAddress: ObservableField<String> = ObservableField()
-    var password: ObservableField<String> = ObservableField()
 
     fun validateEmail(text: CharSequence) {
         isEmailValid.value = CommonUtils.isFieldEmpty(text.toString())
@@ -33,17 +33,7 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
         }
     }
 
-    fun validatePassword(text: CharSequence) {
-        isPasswordValid.value = CommonUtils.isPasswordValid(text.toString())
-        if (!TextUtils.isEmpty(text)) {
-            enableButton.set(true)
-        } else {
-            enableButton.set(false)
-        }
-    }
-
     fun login() {
-        loginSuccessful.postValue(true)
         getUserData()
     }
 
@@ -51,7 +41,12 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
             .doOnSubscribe { }
             .subscribeOn(Schedulers.io())
             .map {
-                Log.e("TextNS", "present data: " + it.name)
+                loginSuccessful.postValue(true)
+                var stringBuilder = StringBuilder()
+                stringBuilder.append("Login : ").append(it.login).append("\n")
+                        .append("Profile Url : ").append(it.avatarUrl).append("\n")
+                        .append("Public Repo: ").append(it.publicRepo)
+                details.set(stringBuilder.toString())
             }
             .subscribe({
                 Log.e("TextNS", "Success api response : ")

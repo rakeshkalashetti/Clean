@@ -1,3 +1,3 @@
 package com.gubb.cleana.domain.model
 
-data class User(val name : String)
+data class User(val login : String?, val avatarUrl : String?, val publicRepo : String?)

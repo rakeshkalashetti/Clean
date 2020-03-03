@@ -31,10 +31,12 @@ data class UserEntity(
     @field:SerializedName("repos_url")
     val reposUrl: String?,
     @field:SerializedName("blog")
-    val blog: String?
+    val blog: String?,
+    @field:SerializedName("public_repos")
+    val publicRepo: String?
 )
 
 fun UserEntity.mapToDomain(): User? {
-    return login?.let { User(it) }
+    return User(login, avatarUrl, publicRepo)
 }
 

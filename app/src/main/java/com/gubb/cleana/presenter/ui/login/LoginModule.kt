@@ -1,4 +1,4 @@
-package com.gubb.cleana.domain.usecase
+package com.gubb.cleana.presenter.ui.login
 
 import com.gubb.cleana.data.datasource.ILoginDataSource
 import com.gubb.cleana.data.repository.LoginRepositoryImpl
@@ -8,7 +8,7 @@ import dagger.Binds
 import dagger.Module
 
 @Module
-abstract class LoginUseCaseModule {
+abstract class LoginModule {
 
     @Binds
     abstract fun provideLoginDataSource(remote: LoginRemoteDataSourceImpl): ILoginDataSource

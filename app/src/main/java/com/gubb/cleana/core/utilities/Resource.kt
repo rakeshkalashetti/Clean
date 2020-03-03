@@ -1,4 +1,4 @@
-package com.gubb.cleana.core
+package com.gubb.cleana.core.utilities
 
 /**
  * A generic class to hold its own loading status
